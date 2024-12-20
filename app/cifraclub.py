@@ -3,14 +3,24 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.options import Options
 
 CIFRACLUB_URL = "https://www.cifraclub.com.br/"
 
 class CifraClub():
     """CifraClub Class"""
     def __init__(self):
-        self.driver = webdriver.Remote("http://selenium:4444/wd/hub", DesiredCapabilities.FIREFOX)
+        options = Options()
+        options.add_argument('--headless')  # Executar o navegador em modo headless (opcional)
+        options.add_argument('--no-sandbox')  # Necessário em alguns ambientes como Docker
+        options.add_argument('--disable-dev-shm-usage')  # Evita problemas de memória compartilhada
+
+        self.driver = webdriver.Remote(
+            command_executor="http://selenium:4444/wd/hub",
+            options=options,
+            # desired_capabilities=options.to_capabilities()  # Garante compatibilidade
+        )
 
     def cifra(self, artist: str, song: str) -> dict:
         """Lê a página HTML e extrai a cifra e meta dados da música."""
