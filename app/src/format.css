@@ -1,0 +1,5 @@
+ body {
+     column-count: 2;
+     column-gap: 1.5em;
+     /* Ajuste o espaçamento entre as colunas */
+ }

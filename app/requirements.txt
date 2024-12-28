@@ -1,3 +1,6 @@
 flask
 bs4
 selenium
+pdfkit
+reportlab
+requests
